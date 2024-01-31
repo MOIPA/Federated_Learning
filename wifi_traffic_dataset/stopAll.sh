@@ -10,3 +10,5 @@ if [ ! -z "$pid" ]; then
 else
     echo "No matching processes found."
 fi
+
+pkill -fi Central_Server.py
