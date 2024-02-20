@@ -10,9 +10,11 @@ import json
 from tools import plot_accuracy_vs_epoch
 import sys
 from Algorithm import KernelAlgo
+from RedisUtils import MyRedis
 
 deviceConfig = 'cpu' 
 kernel = KernelAlgo(map_location=deviceConfig)
+redisUtil = MyRedis()
 
 class CentralServer:
     """中心服务器：
@@ -21,18 +23,14 @@ class CentralServer:
     """
     def __init__(self):
         self.global_model = None
-        self.aggregated_global_model = None
-        self.reputation = {}
+        # self.aggregated_global_model = None
+        # self.reputation = {}
         self.local_models = {}
         self.local_models = Queue()  # 使用队列来存储上传的模型
         self.lock = threading.Lock()  # 创建锁
         self.aggregation_method = "async weighted  aggregation"
         self.new_model_event = threading.Event()
-        self.drone_nodes = {}
-        self.aggregation_accuracies = []
-        self.num_aggregations = 0  # 记录聚合次数
-        self.data_age = {}
-        self.low_performance_counts = {}
+        #self.low_performance_counts = {}
 
         threading.Thread(target=self.check_and_aggregate_models).start()
 
@@ -42,6 +40,9 @@ class CentralServer:
             2. 提供声誉筛选模型聚合结果
             3. 绘图功能
         """
+        aggregation_accuracies = []
+        num_aggregations = 0 # 记录聚合次数
+
         kernel.setTorchSeed(0)
         print("LOGGER-INFO: check_and_aggregate_models() is called")
         start_time = time.time()
@@ -60,9 +61,10 @@ class CentralServer:
                     # 使用声誉需要排序选择模型
                     if use_reputation:
                         # 获取所有模型和它们的声誉
-                        all_models = [self.local_models.get() for _ in range(2)]
+                        all_models = [self.local_models.get() for _ in range(2)]  # 这里没有获取全部，只获取了两个
                         all_reputations = [
-                            self.reputation[drone_id]
+                            redisUtil.hgetNumber('reputation',drone_id)
+                            #self.reputation[drone_id]
                             for model_dict in all_models
                             for drone_id in model_dict
                         ]
@@ -79,7 +81,7 @@ class CentralServer:
 
                         # 打印每轮的所有节点声誉
                         print("                   ")
-                        print(f"Current reputations: {self.reputation}")
+                        print(f"Current reputations: {self.getReputation()}")
 
                         # 打印参与聚合的节点
                         aggregated_node_ids = [
@@ -107,33 +109,34 @@ class CentralServer:
                 
                 self.lock.acquire()  # Acquire lock before aggregation
                 try:
-                    self.aggregated_global_model = kernel.aggregate_models(models_to_aggregate, use_reputation,self.reputation)
+                    aggregated_global_model = kernel.aggregate_models(models_to_aggregate, use_reputation,self.getReputation())
                 finally:
                     self.lock.release()
 
                 aggregation_times.append(time.time())
 
-                accuracy, precision, recall, f1 = kernel.fed_evaluate(self.aggregated_global_model)
+                accuracy, precision, recall, f1 = kernel.fed_evaluate(aggregated_global_model)
 
                 print(f"Aggregated model accuracy after aggregation: {accuracy}")
 
-                self.aggregation_accuracies.append(accuracy)
-                self.num_aggregations += 1  # 增加模型聚合的次数
-                print("Aggregation accuracies so far: ", self.aggregation_accuracies)
+                aggregation_accuracies.append(accuracy)
+                num_aggregations += 1  # 增加模型聚合的次数
+                print("Aggregation accuracies so far: ", aggregation_accuracies)
 
-                for drone_id, ip in self.drone_nodes.items():
-                    self.send_model_thread(ip, "aggregated_global_model")
+                drone_nodes = redisUtil.hgetAllConvertStringAndString('drone_nodes')
+                for drone_id, ip in drone_nodes.items():
+                    self.send_model_thread(ip,aggregated_global_model, "aggregated_global_model")
 
             # 当有10条记录就开始动态画图
-            if self.num_aggregations == 20:
+            if num_aggregations == 20:
                 end_time = time.time()  # 记录结束时间
                 print(
                     f"Total time for aggregation: {end_time - start_time} seconds"
                 )  # 打印执行时间
 
                 # Find the time of the aggregation with the highest accuracy
-                max_accuracy_index = self.aggregation_accuracies.index(
-                    max(self.aggregation_accuracies)
+                max_accuracy_index = aggregation_accuracies.index(
+                    max(aggregation_accuracies)
                 )
                 max_accuracy_time = aggregation_times[max_accuracy_index]
                 print(
@@ -141,27 +144,34 @@ class CentralServer:
                 )
 
                 plot_accuracy_vs_epoch(
-                    self.aggregation_accuracies,
+                    aggregation_accuracies,
                     all_individual_accuracies,
-                    self.num_aggregations,
+                    num_aggregations,
                     learning_rate=0.02,
                 )
+                # 记录aggregation_accuracies
+                redisUtil.normalSetDict('aggregation_accuracies',aggregation_accuracies)
 
                 print("******************聚合完成，聚合进程终止******************")
 
                 sys.exit()  # Terminate the program
             self.new_model_event.clear()
 
-    def update_reputation(self, drone_id, new_reputation):
-        self.reputation[drone_id] = new_reputation
+    def getReputation(self):
+        res = redisUtil.hgetAll('reputation')
+        return {key.decode('utf-8'):float(value) for key,value in res.items()}
 
-    def send_model(self, ip, model_type="global_model"):
+    def update_reputation(self, drone_id, new_reputation):
+        redisUtil.hset('reputation',drone_id,new_reputation)
+        # self.reputation[drone_id] = new_reputation
+
+    def send_model(self, ip,aggregated_global_model, model_type="global_model"):
         """发送模型到目标节点服务，若无全局模型需先训练"""
         # 根据 model_type 加载不同的模型
         if model_type == "aggregated_global_model":
             model_path = "aggregated_global_model.pt"
 
-            global_model_serialized = kernel.saveModelAndGetValue(self.aggregated_global_model.state_dict())
+            global_model_serialized = kernel.saveModelAndGetValue(aggregated_global_model.state_dict())
 
             # Encode the bytes as a base64 string
             global_model_serialized_base64 = base64.b64encode(
@@ -203,9 +213,9 @@ class CentralServer:
             print("发送全局模型-成功！--->" + ip)
             return json.dumps({"status": "success"})
 
-    def send_model_thread(self, ip, model_type="aggregated_global_model"):
+    def send_model_thread(self, ip,aggregatedGlobalModel, model_type="aggregated_global_model"):
         """发送模型线程，因为发送模型任务较为消耗资源，具体执行任务交给子线程执行，主线程专注于提供服务"""
-        threading.Thread(target=self.send_model, args=(ip, model_type)).start()
+        threading.Thread(target=self.send_model, args=(ip,aggregatedGlobalModel, model_type)).start()
 
     # "0.0.0.0"表示应用程序在所有可用网络接口上运行
     def run(self, port=5000):
@@ -222,9 +232,10 @@ class CentralServer:
             ip = request.form["ip"]
             print("接收到新节点,id:" + drone_id + ",ip:" + ip)
             # 将新的无人机节点添加到字典中
-            self.drone_nodes[drone_id] = ip
+            redisUtil.hset('drone_nodes',drone_id,ip)
+            #self.drone_nodes[drone_id] = ip
             print("发送全局模型-执行中--->" + ip)
-            self.send_model_thread(ip, "global_model")
+            self.send_model_thread(ip,None, "global_model")
             return jsonify({"status": "success"})
 
         @app.route("/upload_model", methods=["POST"])
@@ -237,29 +248,38 @@ class CentralServer:
             performance = float(request.form["performance"])
 
             # 更新数据时效性标签
-            if drone_id in self.data_age:
-                self.data_age[drone_id] += 1
+            data_age = redisUtil.hgetAllConvertStringAndInt('data_age')
+            if drone_id in data_age:
+                data_age[drone_id] += 1
+                redisUtil.hset('data_age',drone_id,data_age[drone_id])
             else:
-                self.data_age[drone_id] = 1
-
+                data_age[drone_id] = 1
+                redisUtil.hset('data_age',drone_id,data_age[drone_id])
+            low_performance_counts = {}
             reputation = kernel.compute_reputation(
                 drone_id,
                 performance,
-                self.data_age[drone_id],
-                self.low_performance_counts,
+                data_age[drone_id],
+                low_performance_counts,
                 performance_threshold=0.7,
             )
 
             self.update_reputation(drone_id, reputation)
 
+            
             self.local_models.put({drone_id: local_model})
 
             self.new_model_event.set()
 
             return jsonify({"status": "success"})
 
+        @app.route("/reset", methods=["GET"])
+        def resetRedis():
+            redisUtil.resetRedis()
+
         app.run(host="localhost", port=port)
 
-
+# 每次启动前先清理redis
+redisUtil.resetRedis()
 central_server_instance = CentralServer()
 central_server_instance.run()

@@ -94,7 +94,7 @@ class DroneNode:
 
         def to_predictions(outputs):
             if self.local_model.num_output_features == 1:
-                return (torch.sigmoid(outputs) > 0.5).float()
+                return (nn.ReLU(outputs) > 0.5).float()
             elif self.local_model.num_output_features == 2:
                 return outputs.argmax(dim=1)
             else:
@@ -133,12 +133,15 @@ class DroneNode:
         best_f1 = 0.0
         for epoch in range(num_epochs):
             self.local_model.train()  # Set the model to training mode
+            self.data_device = torch.load(f"data_object/node_train_{drone_id}.pt").to(
+            device
+            )
             outputs = self.local_model(self.data_device)
             loss = compute_loss(outputs, self.data_device.y)
 
-            optimizer.zero_grad()
-            loss.backward()
-            optimizer.step()
+            optimizer.zero_grad()               # 清空过往梯度
+            loss.backward()                     # 反向传播，计算当前梯度 retain_graph=True 多个反向传播最好加上这个
+            optimizer.step()                    # 根据梯度更新网络参数
             # Evaluate
             accuracy, precision, recall, f1 = evaluate(self.data_test_device)
             accuracies.append(accuracy)
@@ -240,7 +243,7 @@ class DroneNode:
             # 先看看接受的模型准不准确
             def to_predictions(outputs):
                 if self.local_model.num_output_features == 1:
-                    return (torch.sigmoid(outputs) > 0.5).float()
+                    return (nn.ReLU(outputs) > 0.5).float()
                 elif self.local_model.num_output_features == 2:
                     return outputs.argmax(dim=1)
                 else:

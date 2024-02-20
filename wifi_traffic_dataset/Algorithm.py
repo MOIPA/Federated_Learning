@@ -5,8 +5,10 @@ import torch.nn as nn
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 import io
 import copy
+import base64
 from aggregation_solution import weighted_average_aggregation, average_aggregation
 from tools import sigmoid, exponential_decay
+import pickle
 
 
 class KernelAlgo():
@@ -40,6 +42,20 @@ class KernelAlgo():
         buffer = io.BytesIO()
         torch.save(state_dict, buffer)
         return buffer.getvalue()
+    
+    def serializeModel(self,model):
+        """序列化模型，model为Net18 pytorch类型，通过序列化关键stat_dict模型参数，做到序列化和重载
+        """
+        serialized = self.saveModelAndGetValue(model.state_dict())
+            # Encode the bytes as a base64 string
+        base64 = base64.b64encode(
+            serialized
+        ).decode()
+        return base64
+    
+    def serializeloadModelFromBase64(self,base64Info):
+        local_model = pickle.loads(base64.b64decode(base64Info))
+        return local_model
 
     def loadModel(self,model_path,map_location="gpu"):
         """加载参数，返回新模型实例
