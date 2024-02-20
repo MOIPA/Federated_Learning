@@ -34,3 +34,5 @@ for i in `seq 0 $(($num-1))`; do
 	echo $logPath
 	python ./Drone_Node.py $port $id > $logPath &
 done
+
+python ./Central_Server.py &

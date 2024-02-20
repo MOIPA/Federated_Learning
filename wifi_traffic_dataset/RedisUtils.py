@@ -17,9 +17,9 @@ class MyRedis():
         self.r = redis.StrictRedis(host='localhost', port=6379)
         self.logger.log("连接redis初始化完成")
     
-    # list中增加
+    # list中增加 element为droneId:模型base64  的格式，需要json化
     def pushToModelList(self,listName,element):
-        self.r.lpush(listName,element)
+        self.r.lpush(listName,json.dumps(element))
     
     def insertToModelList(self,listName,element,newElement):
         self.r.linsert(listName, 'BEFORE', element, newElement)    # 在目标值之前插入新值
