@@ -18,8 +18,8 @@ redisUtil = MyRedis()
 
 class Aggregate:
     """聚合进程：
-        1. 决定聚合模型时刻
-        2. 负责和子节点通信，分发聚合模型
+        1. 决定聚合模型时刻并聚合
+        2. 分发聚合模型
     """
     def __init__(self):
         # self.global_model = None

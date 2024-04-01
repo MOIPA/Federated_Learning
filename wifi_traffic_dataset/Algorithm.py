@@ -18,8 +18,8 @@ class KernelAlgo():
     注意这里的map_location不传的话是默认gpu，如果需要使用cpu传递cpu即可
     """
     def __init__(self,map_location='gpu'
-                 ,serverTrainPath="data_object/server_train.pt"
-                 ,serverTestPath="data_object/server_test.pt"
+                 ,serverTrainPath="./model/data_object/server_train.pt"
+                 ,serverTestPath="./model/data_object/server_test.pt"
                  ,learning_rate=0.01,num_output_features=2,seed=0,performance_threshold=0.7) -> None:
         """
             模块初始化，获取以下成员变量：
@@ -36,7 +36,7 @@ class KernelAlgo():
         self.initData(map_location,serverTrainPath,serverTestPath)
 
     def saveModelAndGetValue(self,state_dict):
-        """保存模型，并且返回保存结果
+        """保存模型参数字典，并且返回保存结果
             @state_dict     目标模型的参数字典
         """
         buffer = io.BytesIO()
@@ -54,6 +54,7 @@ class KernelAlgo():
         return base64
     
     def serializeloadModelFromBase64(self,base64Info):
+        """反序列化模型，装载模型到内存"""
         local_model = pickle.loads(base64.b64decode(base64Info))
         return local_model
 
@@ -250,7 +251,7 @@ class KernelAlgo():
         # After training, load the best model weights
         model.load_state_dict(best_model_state_dict)
         # Save the best model to a file
-        torch.save(model.state_dict(), "global_model.pt")
+        torch.save(model.state_dict(), "./model/global_model.pt")
         # Find the maximum accuracy and its corresponding epoch
         max_accuracy = max(accuracies)
         max_epoch = accuracies.index(max_accuracy) + 1
@@ -279,7 +280,7 @@ class KernelAlgo():
 
         # 保存全局模型到文件， 以pt形式保存
         torch.save(
-            aggregated_global_model.state_dict(), "aggregated_global_model.pt"
+            aggregated_global_model.state_dict(), "./model/aggregated_global_model.pt"
         )
         return aggregated_global_model
 

@@ -18,8 +18,9 @@ redisUtil = MyRedis()
 
 class CentralServer:
     """中心服务器：
-        1. 用于维护节点模型声望值，决定聚合模型时刻
-        2. 负责和子节点通信，分发聚合模型
+        1. 初次分发初始全局模型
+        2. 进行节点注册（保存注册信息到redis）
+        3. 更新节点模型的声望值
     """
     def __init__(self):
         # self.global_model = None
@@ -46,7 +47,7 @@ class CentralServer:
         """发送模型到目标节点服务，若无全局模型需先训练"""
         # 根据 model_type 加载不同的模型
         # 默认加载 global_model
-        model_path = "global_model.pt"
+        model_path = "./model/global_model.pt"
         # 检查模型是否已经存在
         if os.path.isfile(model_path):
             # 加载模型

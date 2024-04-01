@@ -16,7 +16,6 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 import os
 import matplotlib.pyplot as plt
 from matplotlib.ticker import FuncFormatter
-from Dataset import n_nodes
 from tools import plot_accuracy_vs_epoch
 import copy
 from Logger import InfoLogger
@@ -133,7 +132,7 @@ class DroneNode:
         best_f1 = 0.0
         for epoch in range(num_epochs):
             self.local_model.train()  # Set the model to training mode
-            self.data_device = torch.load(f"data_object/node_train_{drone_id}.pt").to(
+            self.data_device = torch.load(f"./model/data_object/node_train_{drone_id}.pt").to(
             device
             )
             outputs = self.local_model(self.data_device)
@@ -298,10 +297,10 @@ class DroneNode:
         
         """
         torch.manual_seed(0)
-        self.data_device = torch.load(f"data_object/node_train_{drone_id}.pt").to(
+        self.data_device = torch.load(f"./model/data_object/node_train_{drone_id}.pt").to(
             device
         )
-        self.data_test_device = torch.load(f"data_object/node_test_{drone_id}.pt").to(
+        self.data_test_device = torch.load(f"./model/data_object/node_test_{drone_id}.pt").to(
             device
         )
 
