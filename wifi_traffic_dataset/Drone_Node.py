@@ -132,7 +132,7 @@ class DroneNode:
         best_f1 = 0.0
         for epoch in range(num_epochs):
             self.local_model.train()  # Set the model to training mode
-            self.data_device = torch.load(f"./model/data_object/node_train_{drone_id}.pt").to(
+            self.data_device = torch.load(f"../model/data_object/node_train_{drone_id}.pt").to(
             device
             )
             outputs = self.local_model(self.data_device)
@@ -297,10 +297,10 @@ class DroneNode:
         
         """
         torch.manual_seed(0)
-        self.data_device = torch.load(f"./model/data_object/node_train_{drone_id}.pt").to(
+        self.data_device = torch.load(f"../model/data_object/node_train_{drone_id}.pt").to(
             device
         )
-        self.data_test_device = torch.load(f"./model/data_object/node_test_{drone_id}.pt").to(
+        self.data_test_device = torch.load(f"../model/data_object/node_test_{drone_id}.pt").to(
             device
         )
 

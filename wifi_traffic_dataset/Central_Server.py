@@ -47,7 +47,7 @@ class CentralServer:
         """发送模型到目标节点服务，若无全局模型需先训练"""
         # 根据 model_type 加载不同的模型
         # 默认加载 global_model
-        model_path = "./model/global_model.pt"
+        model_path = "../model/global_model.pt"
         # 检查模型是否已经存在
         if os.path.isfile(model_path):
             # 加载模型
