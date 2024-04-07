@@ -1,0 +1,7 @@
+ID,Age,Gender,Occupation,Product_Category,Likes_Product
+1,25,Male,Engineer,Electronics,Yes
+2,32,Female,Doctor,Clothing,No
+3,22,Male,Student,Electronics,Yes
+4,35,Female,Lawyer,Books,No
+5,28,Male,Businessman,Clothing,Yes
+6,21,Female,Student,Books,Yes
