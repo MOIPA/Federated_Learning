@@ -11670,4 +11670,3 @@ timestamp_c,frame.number,frame.len,frame.protocols,wlan.duration,wlan.ra,wlan.ta
 27406.48291,3782,26,0,314,1,0,1,0,0,0,1573,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,12,0.002223,DoS attack
 27406.48714,3783,26,0,314,0,1,0,1,0,0,1574,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,12,0.00423,DoS attack
 27406.48949,3784,26,0,314,1,0,1,0,0,0,1575,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,12,0.002352,DoS attack
-timestamp_p,height,x_speed,y_speed,z_speed,pitch,roll,yaw,temperature,distance,barometer,flight_time,battery,mp_distance_x,mp_distance_y,mp_distance_z,class,,,,,,,,,,,,,,,,,,,,,

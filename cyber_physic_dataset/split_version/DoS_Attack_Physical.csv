@@ -1,4 +1,4 @@
-timestamp_c,frame.number,frame.len,frame.protocols,wlan.duration,wlan.ra,wlan.ta,wlan.da,wlan.sa,wlan.bssid,wlan.frag,wlan.seq,llc.type,ip.hdr_len,ip.len,ip.id,ip.flags,ip.ttl,ip.proto,ip.src,ip.dst,tcp.srcport,tcp.dstport,tcp.seq_raw,tcp.ack_raw,tcp.hdr_len,tcp.flags,tcp.window_size,tcp.options,udp.srcport,udp.dstport,udp.length,data.data,data.len,wlan.fc.type,wlan.fc.subtype,time_since_last_packet,class
+timestamp_p,height,x_speed,y_speed,z_speed,pitch,roll,yaw,temperature,distance,barometer,flight_time,battery,mp_distance_x,mp_distance_y,mp_distance_z,class,,,,,,,,,,,,,,,,,,,,,
 22615.81999,70,0,0,0,0,0,0,62,84,13966,9,84,-15,-16,87,DoS,,,,,,,,,,,,,,,,,,,,,
 22616.34984,60,0,0,0,0,-1,0,61,83,13959,9,84,-16,-19,86,DoS,,,,,,,,,,,,,,,,,,,,,
 22616.88042,60,0,0,0,0,-1,0,61,83,13956,10,84,-17,-21,85,DoS,,,,,,,,,,,,,,,,,,,,,
@@ -972,4 +972,3 @@ timestamp_c,frame.number,frame.len,frame.protocols,wlan.duration,wlan.ra,wlan.ta
 27673.02022,70,2,0,0,0,0,0,66,84,14437,26,77,-7,16,84,DoS,,,,,,,,,,,,,,,,,,,,,
 27673.53936,70,2,0,0,-1,-1,0,66,83,14440,26,77,-19,22,82,DoS,,,,,,,,,,,,,,,,,,,,,
 27674.09387,60,2,0,0,-2,-1,0,67,81,14436,27,77,-34,27,77,DoS,,,,,,,,,,,,,,,,,,,,,
-timestamp_c,frame.number,frame.len,frame.protocols,wlan.duration,wlan.ra,wlan.ta,wlan.da,wlan.sa,wlan.bssid,wlan.frag,wlan.seq,llc.type,ip.hdr_len,ip.len,ip.id,ip.flags,ip.ttl,ip.proto,ip.src,ip.dst,tcp.srcport,tcp.dstport,tcp.seq_raw,tcp.ack_raw,tcp.hdr_len,tcp.flags,tcp.window_size,tcp.options,udp.srcport,udp.dstport,udp.length,data.data,data.len,wlan.fc.type,wlan.fc.subtype,time_since_last_packet,class

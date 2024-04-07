@@ -1,4 +1,4 @@
-timestamp_c,frame.number,frame.len,frame.protocols,wlan.duration,wlan.ra,wlan.ta,wlan.da,wlan.sa,wlan.bssid,wlan.frag,wlan.seq,llc.type,ip.hdr_len,ip.len,ip.id,ip.flags,ip.ttl,ip.proto,ip.src,ip.dst,tcp.srcport,tcp.dstport,tcp.seq_raw,tcp.ack_raw,tcp.hdr_len,tcp.flags,tcp.window_size,tcp.options,udp.srcport,udp.dstport,udp.length,data.data,data.len,wlan.fc.type,wlan.fc.subtype,time_since_last_packet,class
+timestamp_c,frame.number,frame.len,wlan.ta,wlan.sa,wlan.ra,wlan.da,wlan.bssid,wlan.duration,wlan.frag,wlan.seq,wlan.fc.type,wlan.fc.subtype,wlan.flags,wlan.fcs,wlan.fcs.status,wlan.qos,wlan.qos.priority,wlan.qos.ack,wlan.ccmp.extiv,wlan.wep.key,data.len,radiotap.hdr_length,radiotap.antenna_signal,radiotap.signal_quality,radiotap.channel.flags.ofdm,radiotap.channel.flags.cck,wlan_radio.datarate,wlan_radio.channel,wlan_radio.frequency,wlan_radio.signal_strength (dbm),wlan_radio.Noise level (dbm),wlan_radio.SNR (db),wlan_radio.preamble,class,,,
 1693963539,1,140,0,0,41,41,0,0,0,1561,0,8,0,3250454999,2,0,0,0,0,0,0,32,-86,100,0,1,1,2,2417,-86,0,0,192,FDI,,,
 1693963539,3,134,0,0,15,15,0,320,0,1562,0,5,0,1980100656,2,0,0,0,0,0,0,32,-68,100,0,1,1,2,2417,-68,0,0,192,FDI,,,
 1693963539,4,134,0,0,15,15,0,320,0,1562,0,5,8,2992310796,2,0,0,0,0,0,0,32,-78,100,0,1,1,2,2417,-78,0,0,192,FDI,,,
@@ -3472,4 +3472,3 @@ timestamp_c,frame.number,frame.len,frame.protocols,wlan.duration,wlan.ra,wlan.ta
 1694818313,4649,62,0,0,0,0,0,60,0,0,2,12,1,2671372690,2,0,0,0,0,0,0,32,-12,54,1,0,6,2,2417,-12,0,0,20,FDI,,,
 1694818313,4651,62,0,0,0,0,0,60,0,0,2,12,17,3341733628,2,0,0,0,0,0,0,32,-14,51,1,0,6,2,2417,-14,0,0,20,FDI,,,
 1694818314,4654,62,0,0,0,0,0,60,0,0,2,12,1,2671372690,2,0,0,0,0,0,0,32,-14,45,1,0,6,2,2417,-14,0,0,20,FDI,,,
-mid,x,y,z,mpitch,mroll,myaw,pitch,roll,yaw,vgx,vgy,vgz,templ,temph,tof,h,bat,baro,flight_time,agx,agy,agz,est_x,est_y,cntl_x,cntl_y,residual1,residual2,residual3,residual4,class,,,,,,

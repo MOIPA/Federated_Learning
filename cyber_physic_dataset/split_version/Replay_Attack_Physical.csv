@@ -1,4 +1,4 @@
-timestamp_c,frame.number,frame.len,frame.protocols,wlan.duration,wlan.ra,wlan.ta,wlan.da,wlan.sa,wlan.bssid,wlan.frag,wlan.seq,llc.type,ip.hdr_len,ip.len,ip.id,ip.flags,ip.ttl,ip.proto,ip.src,ip.dst,tcp.srcport,tcp.dstport,tcp.seq_raw,tcp.ack_raw,tcp.hdr_len,tcp.flags,tcp.window_size,tcp.options,udp.srcport,udp.dstport,udp.length,data.data,data.len,wlan.fc.type,wlan.fc.subtype,time_since_last_packet,class
+timestamp_p,height,x_speed,y_speed,z_speed,pitch,roll,yaw,temperature,distance,barometer,flight_time,battery,mp_distance_x,mp_distance_y,mp_distance_z,class,,,,,,,,,,,,,,,,,,,,,
 27674.61548,60,2,0,0,-2,-1,0,67,81,14438,27,77,-43,25,79,Replay,,,,,,,,,,,,,,,,,,,,,
 27675.14112,60,2,0,0,-1,-1,0,67,81,14438,28,77,-43,-9,81,Replay,,,,,,,,,,,,,,,,,,,,,
 27675.68571,60,1,-1,0,-1,-1,0,67,81,14432,29,77,-33,2,81,Replay,,,,,,,,,,,,,,,,,,,,,
@@ -972,4 +972,3 @@ timestamp_c,frame.number,frame.len,frame.protocols,wlan.duration,wlan.ra,wlan.ta
 16982.56762,120,0,0,0,0,0,0,68,87,19199,54,57,-100,-100,-100,Replay,,,,,,,,,,,,,,,,,,,,,
 16983.08623,120,0,0,0,0,0,0,69,85,19202,55,57,-100,-100,-100,Replay,,,,,,,,,,,,,,,,,,,,,
 16983.60684,120,0,0,0,-1,0,0,69,83,19199,55,56,-100,-100,-100,Replay,,,,,,,,,,,,,,,,,,,,,
-timestamp_c,frame.number,frame.len,wlan.ta,wlan.sa,wlan.ra,wlan.da,wlan.bssid,wlan.duration,wlan.frag,wlan.seq,wlan.fc.type,wlan.fc.subtype,wlan.flags,wlan.fcs,wlan.fcs.status,wlan.qos,wlan.qos.priority,wlan.qos.ack,wlan.ccmp.extiv,wlan.wep.key,data.len,radiotap.hdr_length,radiotap.antenna_signal,radiotap.signal_quality,radiotap.channel.flags.ofdm,radiotap.channel.flags.cck,wlan_radio.datarate,wlan_radio.channel,wlan_radio.frequency,wlan_radio.signal_strength (dbm),wlan_radio.Noise level (dbm),wlan_radio.SNR (db),wlan_radio.preamble,class,,,

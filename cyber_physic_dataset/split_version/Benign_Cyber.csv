@@ -9424,4 +9424,3 @@ timestamp_c,frame.number,frame.len,frame.protocols,wlan.duration,wlan.ra,wlan.ta
 54392.31747,917,238,2,44,0,1,0,1,0,0,1091,2048,20,204,1082,0,255,17,1,1,0,0,0,0,0,0,0,0,8889,8890,184,3,176,2,8,0.000433,benign
 54392.41309,919,26,0,60,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,12,0.095618,benign
 54392.41903,921,238,2,44,0,1,0,1,0,0,1092,2048,20,204,1083,0,255,17,1,1,0,0,0,0,0,0,0,0,8889,8890,184,5,176,2,8,0.00594,benign
-timestamp_p,height,x_speed,y_speed,z_speed,pitch,roll,yaw,temperature,distance,barometer,flight_time,battery,mp_distance_x,mp_distance_y,mp_distance_z,class,,,,,,,,,,,,,,,,,,,,,

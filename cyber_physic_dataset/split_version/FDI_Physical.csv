@@ -1,4 +1,4 @@
-timestamp_c,frame.number,frame.len,frame.protocols,wlan.duration,wlan.ra,wlan.ta,wlan.da,wlan.sa,wlan.bssid,wlan.frag,wlan.seq,llc.type,ip.hdr_len,ip.len,ip.id,ip.flags,ip.ttl,ip.proto,ip.src,ip.dst,tcp.srcport,tcp.dstport,tcp.seq_raw,tcp.ack_raw,tcp.hdr_len,tcp.flags,tcp.window_size,tcp.options,udp.srcport,udp.dstport,udp.length,data.data,data.len,wlan.fc.type,wlan.fc.subtype,time_since_last_packet,class
+mid,x,y,z,mpitch,mroll,myaw,pitch,roll,yaw,vgx,vgy,vgz,templ,temph,tof,h,bat,baro,flight_time,agx,agy,agz,est_x,est_y,cntl_x,cntl_y,residual1,residual2,residual3,residual4,class,,,,,,
 12,134,-2,80,0,176,-179,0,0,61,0,0,0,62,64,72,50,82,243.33,6,-3,18,-1027,115.5172414,-1.724137931,-18.34482759,-7.917241379,134,-2,134,-2,FDI,,,,,,
 12,-3,-12,102,0,176,-179,0,0,61,0,-1,0,64,66,102,80,82,243.72,12,0,12,-953,9.840284153,-10.87591743,12.55506526,-4.78922588,-176.2758621,-9.413793103,-121.0842912,-10.23754789,FDI,,,,,,
 12,-6,-9,104,-4,176,-178,-1,-1,61,0,0,0,64,66,105,80,82,243.77,14,0,5,-1017,-6.297393397,-9.307204232,12.99455859,-6.259777025,-31.11679357,7.225581944,0.751658432,3.583962361,FDI,,,,,,

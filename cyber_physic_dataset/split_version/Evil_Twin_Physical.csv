@@ -1,4 +1,4 @@
-timestamp_c,frame.number,frame.len,frame.protocols,wlan.duration,wlan.ra,wlan.ta,wlan.da,wlan.sa,wlan.bssid,wlan.frag,wlan.seq,llc.type,ip.hdr_len,ip.len,ip.id,ip.flags,ip.ttl,ip.proto,ip.src,ip.dst,tcp.srcport,tcp.dstport,tcp.seq_raw,tcp.ack_raw,tcp.hdr_len,tcp.flags,tcp.window_size,tcp.options,udp.srcport,udp.dstport,udp.length,data.data,data.len,wlan.fc.type,wlan.fc.subtype,time_since_last_packet,class
+timestamp_p,mid,x,y,z,pitch,roll,yaw,vgx,vgy,vgz,templ,temph,tof,h,bat,baro,time,agx,agy,agz,class,,,,,,,,,,,,,,,,
 1683982117,-1,-100,-100,-100,0,0,-173,0,0,0,61,64,159,130,57,286.32,78,13,-6,-1001,evil_twin,,,,,,,,,,,,,,,,
 1683982117,-1,-100,-100,-100,0,0,-173,0,0,0,61,65,159,130,57,286.34,78,4,-7,-993,evil_twin,,,,,,,,,,,,,,,,
 1683982118,-1,-100,-100,-100,0,0,-173,0,0,0,61,65,159,130,57,286.34,78,4,-7,-993,evil_twin,,,,,,,,,,,,,,,,
@@ -5472,4 +5472,3 @@ timestamp_c,frame.number,frame.len,frame.protocols,wlan.duration,wlan.ra,wlan.ta
 1683982118,-1,-100,-100,-100,0,0,-173,0,0,0,61,65,159,130,57,286.25,79,8,-10,-999,evil_twin,,,,,,,,,,,,,,,,
 1683982118,-1,-100,-100,-100,0,0,-173,0,0,0,61,65,159,130,57,286.3,79,4,-10,-992,evil_twin,,,,,,,,,,,,,,,,
 1683982118,-1,-100,-100,-100,0,0,-173,0,0,0,61,65,159,130,57,286.35,79,10,-10,-997,evil_twin,,,,,,,,,,,,,,,,
-timestamp_c,frame.number,frame.len,wlan.ta,wlan.sa,wlan.ra,wlan.da,wlan.bssid,wlan.duration,wlan.frag,wlan.seq,wlan.fc.type,wlan.fc.subtype,wlan.flags,wlan.fcs,wlan.fcs.status,wlan.qos,wlan.qos.priority,wlan.qos.ack,wlan.ccmp.extiv,wlan.wep.key,data.len,radiotap.hdr_length,radiotap.antenna_signal,radiotap.signal_quality,radiotap.channel.flags.ofdm,radiotap.channel.flags.cck,wlan_radio.datarate,wlan_radio.channel,wlan_radio.frequency,wlan_radio.signal_strength (dbm),wlan_radio.Noise level (dbm),wlan_radio.SNR (db),wlan_radio.preamble,class,,,
